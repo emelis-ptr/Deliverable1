@@ -1,4 +1,4 @@
-package Deliverable;
+package deliverable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -59,7 +59,9 @@ public class RetrieveIDTickets {
 		   String projName ="Parquet";
 		   ArrayList<String> ticketsID= new ArrayList<>();
 		   
-		   Integer j = 0, i = 0, total = 1;
+		   Integer j = 0;
+		   Integer i = 0;
+		   Integer total = 1;
 	      //Get JSON API for closed bugs w/ AV in the project
 	      do {
 	         //Only gets a max of 1000 at a time, so must do this multiple times if bugs >1000
@@ -79,7 +81,7 @@ public class RetrieveIDTickets {
 	         }  
 	      } while (i < total);
 	      if(!ticketsID.isEmpty()) {
-	    	 // System.out.println(ticketsID);
+	    	 
 	    	  RetrieveCommitTicketsID.RetrieveCommitTicketsID(ticketsID);
 		  }    
 	   }

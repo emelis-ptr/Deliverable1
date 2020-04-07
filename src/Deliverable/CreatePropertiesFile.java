@@ -1,4 +1,4 @@
-package Deliverable;
+package deliverable;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
