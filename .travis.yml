@@ -4,7 +4,7 @@ jdk:
 addons:
   sonarcloud:
    organization: emelis-ptr
-   token: aeb147bbc2a9d4f053f27f2147ee0fa066acf582
+   token: eeb7c92907b4c066f3359fe3a39b5a82802e8ded
 script:
 - ant build
 - sonar-scanner
