@@ -1,4 +1,10 @@
 language: java
-jdk:
+jdk: 
 - openjdk8
-script:  ant build
+addons:
+  sonarcloud:
+   organization: emelis-ptr
+   token: aeb147bbc2a9d4f053f27f2147ee0fa066acf582
+script:
+- ant build
+- sonar-scanner
