@@ -80,7 +80,7 @@ public class RetrieveIDTickets {
 	      } while (i < total);
 	      if(!ticketsID.isEmpty()) {
 	    	 
-	    	  RetrieveCommitTicketsID.RetrieveCommitTicketsID(ticketsID);
+	    	  RetrieveCommitTicketsID.retrieveCommitTicketsID(ticketsID);
 		  }    
 	   }
 }
