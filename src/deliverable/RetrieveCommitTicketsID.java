@@ -214,10 +214,9 @@ public class RetrieveCommitTicketsID {
     		 if(LastCommit) {
     			 lastCommit.setTime(AllCommitDate.get(0));
     			 LastCommit = false;
-    			    	    	 }
-	     }
-    	 
-    	   }
+    			    	    }
+	       }
+      }
 }
 	
 
