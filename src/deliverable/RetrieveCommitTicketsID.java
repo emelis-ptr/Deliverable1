@@ -211,10 +211,12 @@ public class RetrieveCommitTicketsID {
     			 firstCommit.setTime(allCommitDate.get(allCommitDate.size()-1));
     			 first = false;
     				    	 }
+    		 else { first = true;}
     		 if(last) {
     			 lastCommit.setTime(allCommitDate.get(0));
     			 last = false;
     			    	    }
+    		 else { last = true;}
 	       }
       }
 }
