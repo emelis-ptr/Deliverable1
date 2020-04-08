@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,22 +24,24 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 public class RetrieveCommitTicketsID {
 		
-        private static Calendar firstCommit = Calendar.getInstance();
-		private static Calendar lastCommit = Calendar.getInstance();
+        private static Calendar FirstCommit = Calendar.getInstance();
+		private static Calendar LastCommit = Calendar.getInstance();
 		private static Map<String, Integer> commitYearMonth = new HashMap<>();
         
-		private RetrieveCommitTicketsID() {}
-      	
-		public static void retrieveCommitTicketsID(List<String> TicketsID) throws IOException, JGitInternalException, NoHeadException {
+      	public static void RetrieveCommitTicketsID(List<String> TicketsID) throws IOException, JGitInternalException, NoHeadException {
 		
-	    Properties properties = new Properties();
+	    //Contiene il path del repository
+		Properties properties = new Properties();
 		properties.load(new FileInputStream("path_repository.properties"));
-		String repoPath = properties.getProperty("PATH");
+		String repo_path = properties.getProperty("PATH");
 		
+		//Apre il repository
 		FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
-	    Repository repository = repositoryBuilder.setGitDir(new File(repoPath)).setMustExist(true).build();
+	    Repository repository = repositoryBuilder.setGitDir(new File(repo_path)).setMustExist(true).build();
 	    
-	   	Git git = new Git(repository);
+	    //System.out.println("Having repository: " + repository.getDirectory());
+	    
+		Git git = new Git(repository);
 		
 		//Trova tutti i commit che hanno al suo interno l'ID del ticket
 		 for(String ticketID: TicketsID) {
@@ -46,7 +49,7 @@ public class RetrieveCommitTicketsID {
 			Iterator<RevCommit> iterator =logs.iterator();
 			ArrayList<RevCommit> list = new ArrayList<>();
 			
-			firstLastCommit(git);
+			FirstLast(git);
 			 
 	        while(iterator.hasNext()) {
 	        	
@@ -81,9 +84,9 @@ public class RetrieveCommitTicketsID {
 		Date lastCommitHash = lastCommit.getAuthorIdent().getWhen();
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("yyyy-M");
         
-		String yearMonth = simpleDateformat.format(lastCommitHash);
+		String year_month = simpleDateformat.format(lastCommitHash);
 		
-		countFixedTickets(yearMonth);
+		CountFixedTickets(year_month);
 		
 	 }
 	 
@@ -93,15 +96,16 @@ public class RetrieveCommitTicketsID {
 	 * 
 	 */
 
-	private static void countFixedTickets(String yearMonth) {
+	private static void CountFixedTickets(String year_month) {
 		
-		if(commitYearMonth.containsKey(yearMonth)) {
+		if(commitYearMonth.containsKey(year_month)) {
 			
-			commitYearMonth.put(yearMonth,  commitYearMonth.get(yearMonth) + 1);
-						
+			commitYearMonth.put(year_month,  commitYearMonth.get(year_month) + 1);
+			//System.out.println(totalTicket);
+			
 		}else {		
 			
-			commitYearMonth.put(yearMonth,  Integer.valueOf(1));
+			commitYearMonth.put(year_month,  Integer.valueOf(1));
 			
 		}	
 	}	
@@ -112,14 +116,14 @@ public class RetrieveCommitTicketsID {
    	 * 
    	 */
     
-    private static ArrayList<String> addMissingDate()  {
+    private static ArrayList<String> AddMissingDate()  {
     	
     	 ArrayList<String> sortedKeys= new ArrayList<>();
     	 	
-    	 int firstCommitYear= firstCommit.get(Calendar.YEAR);
-		 int firstCommitMonth= firstCommit.get(Calendar.MONTH) +1;
-		 int lastCommitYear= lastCommit.get(Calendar.YEAR);
-		 int lastCommitMonth= lastCommit.get(Calendar.MONTH) +1 ;
+    	 int firstCommitYear= FirstCommit.get(Calendar.YEAR);
+		 int firstCommitMonth= FirstCommit.get(Calendar.MONTH) +1;
+		 int lastCommitYear= LastCommit.get(Calendar.YEAR);
+		 int lastCommitMonth= LastCommit.get(Calendar.MONTH) +1 ;
 		 
 		 while(firstCommitYear <= lastCommitYear) {
 		
@@ -142,7 +146,8 @@ public class RetrieveCommitTicketsID {
 		firstCommitYear++;			
 	}		
       
-        return sortedKeys;
+     // System.out.println("Date " + sortedKeys); 
+      return sortedKeys;
       
     }
     
@@ -152,7 +157,7 @@ public class RetrieveCommitTicketsID {
 	 */
     
      private static void writeFile() throws IOException{
-    	 ArrayList<String> keysSorted= addMissingDate();
+    	 ArrayList<String> keysSorted= AddMissingDate();
     	 
     	 try (PrintWriter pw =new PrintWriter("TicketsAnalysis.csv"))  {
     		 
@@ -167,7 +172,8 @@ public class RetrieveCommitTicketsID {
                  
  				ArrayList<String> rowData= new ArrayList<>();
  				rowData.add(key);
- 				 				
+ 				//rowData.add(Integer.toString(commitYearMonth.get(key)));
+ 				
  				if(commitYearMonth.containsKey(key)) {
 					rowData.add(Integer.toString(commitYearMonth.get(key)));
 				}
@@ -181,6 +187,7 @@ public class RetrieveCommitTicketsID {
  			   }
     		 
     		    pw.write(sb.toString());
+    		    pw.close();
     	 }
 
     }
@@ -190,33 +197,36 @@ public class RetrieveCommitTicketsID {
  	 * 
  	 */
      
-     public static void firstLastCommit(Git git) throws NoHeadException, JGitInternalException {
+     public static void FirstLast(Git git) throws NoHeadException, JGitInternalException {
     	 Iterable<RevCommit> logs = git.log().call();
-    	 ArrayList<Date> AllCommitDate = new ArrayList<>();
+    	 ArrayList<Date> AllCommitDate = new ArrayList<Date>();
+    	 SimpleDateFormat simpleDateformat = new SimpleDateFormat("yyyy-M");
     	 
-    	 Boolean first = true;
-		 Boolean last = true;
+    	 Boolean firstCommit = true;
+		 Boolean lastCommit = true;
     	 
     	 for(RevCommit commit: logs) {
 		 Date allCommit = commit.getAuthorIdent().getWhen();
 	    
 	     AllCommitDate.add(allCommit);
 	     
-	          }
+	     //System.out.println(AllCommitDate);
+	        }
     	 
     	 //Ottenere il primo e ultimo commit del progetto
     	 for (int i=0; i<AllCommitDate.size(); i++) {
-    		 if(first) {
+    		 if(firstCommit) {
     			 AllCommitDate.get(AllCommitDate.size()-1);
-    			 firstCommit.setTime(AllCommitDate.get(AllCommitDate.size()-1));
-    			 first = false;
-    				    	 }
-    		 if(last) {
-    			 lastCommit.setTime(AllCommitDate.get(0));
-    			 last = false;
-    			    	    }
-	       }
-      }
+    			 FirstCommit.setTime(AllCommitDate.get(AllCommitDate.size()-1));
+    			//System.out.println(FirstCommit);
+	    	 }
+    		 if(lastCommit) {
+    			 LastCommit.setTime(AllCommitDate.get(0));
+    			//System.out.println(LastCommit);
+    	    	 }
+	     }
+    	 
+    	   }
 }
 	
 
