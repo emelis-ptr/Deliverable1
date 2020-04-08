@@ -194,8 +194,8 @@ public class RetrieveCommitTicketsID {
     	 Iterable<RevCommit> logs = git.log().call();
     	 ArrayList<Date> AllCommitDate = new ArrayList<>();
     	 
-    	 Boolean FirstCommit = true;
-		 Boolean LastCommit = true;
+    	 Boolean first = true;
+		 Boolean last = true;
     	 
     	 for(RevCommit commit: logs) {
 		 Date allCommit = commit.getAuthorIdent().getWhen();
@@ -206,14 +206,14 @@ public class RetrieveCommitTicketsID {
     	 
     	 //Ottenere il primo e ultimo commit del progetto
     	 for (int i=0; i<AllCommitDate.size(); i++) {
-    		 if(FirstCommit) {
+    		 if(first) {
     			 AllCommitDate.get(AllCommitDate.size()-1);
     			 firstCommit.setTime(AllCommitDate.get(AllCommitDate.size()-1));
-    			 FirstCommit = false;
+    			 first = false;
     				    	 }
-    		 if(LastCommit) {
+    		 if(last) {
     			 lastCommit.setTime(AllCommitDate.get(0));
-    			 LastCommit = false;
+    			 last = false;
     			    	    }
 	       }
       }
