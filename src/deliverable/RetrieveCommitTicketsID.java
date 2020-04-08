@@ -25,12 +25,12 @@ public class RetrieveCommitTicketsID {
 		
         private Calendar firstCommit;
 		private Calendar lastCommit;
-		private static Map<String, Integer> commitYearMonth;
+		private Map<String, Integer> commitYearMonth;
         
 		private RetrieveCommitTicketsID() {
 			this.firstCommit = Calendar.getInstance();
 			this.lastCommit  = Calendar.getInstance();
-			RetrieveCommitTicketsID.commitYearMonth = new HashMap<>();
+			this.commitYearMonth = new HashMap<>();
 		}
 		
       	
@@ -84,9 +84,9 @@ public class RetrieveCommitTicketsID {
 	
 	private void lastcommitDate(ArrayList<RevCommit> list) throws NoHeadException, JGitInternalException {
 		
-		RevCommit lastCommit = list.get(0);      //Prende l'ultimo commit di un TicketID
+		RevCommit lastCommitTickets = list.get(0);      //Prende l'ultimo commit di un TicketID
 		 
-		Date lastCommitHash = lastCommit.getAuthorIdent().getWhen();
+		Date lastCommitHash = lastCommitTickets.getAuthorIdent().getWhen();
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("yyyy-M");
         
 		String yearMonth = simpleDateformat.format(lastCommitHash);
@@ -202,8 +202,8 @@ public class RetrieveCommitTicketsID {
     	 Iterable<RevCommit> logs = git.log().call();
     	 ArrayList<Date> allCommitDate = new ArrayList<>();
     	 
-    	 Boolean first = getBoolean();
-		 Boolean last = getBoolean();
+    	 Boolean first = Boolean.getBoolean(" ");
+		 Boolean last = Boolean.getBoolean(" ");
     	 
     	 for(RevCommit commit: logs) {
 		 Date allCommit = commit.getAuthorIdent().getWhen();
@@ -229,10 +229,8 @@ public class RetrieveCommitTicketsID {
       }
 
 
-	private Boolean getBoolean() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
      
 }
 	
