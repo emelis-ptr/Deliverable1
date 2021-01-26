@@ -16,7 +16,7 @@
         <pathelement location="jar/slf4j-api-1.7.21.jar"/>
         <pathelement location="jar/slf4j-log4j12-1.7.21.jar"/>
     </path>
-    <path id="run.RetrieveIDTickets.classpath">
+    <path id="run.MainDeliverable1.classpath">
         <path refid="Deliverable1.classpath"/>
         <pathelement location="jar/json-20190722.jar"/>
         <pathelement location="jar/log4j-1.2.17.jar"/>
@@ -24,7 +24,7 @@
         <pathelement location="jar/slf4j-api-1.7.21.jar"/>
         <pathelement location="jar/slf4j-log4j12-1.7.21.jar"/>
     </path>
-    <path id="run.MainDeliverable1.classpath">
+    <path id="run.RetrieveIDTickets.classpath">
         <path refid="Deliverable1.classpath"/>
         <pathelement location="jar/json-20190722.jar"/>
         <pathelement location="jar/log4j-1.2.17.jar"/>
@@ -67,14 +67,14 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="RetrieveIDTickets">
-        <java classname="deliverable1.RetrieveIDTickets" failonerror="true" fork="yes">
-            <classpath refid="run.RetrieveIDTickets.classpath"/>
-        </java>
-    </target>
     <target name="MainDeliverable1">
         <java classname="deliverable1.MainDeliverable1" failonerror="true" fork="yes">
             <classpath refid="run.MainDeliverable1.classpath"/>
+        </java>
+    </target>
+    <target name="RetrieveIDTickets">
+        <java classname="deliverable1.RetrieveIDTickets" failonerror="true" fork="yes">
+            <classpath refid="run.RetrieveIDTickets.classpath"/>
         </java>
     </target>
 </project>
