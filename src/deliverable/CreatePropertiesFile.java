@@ -1,8 +1,7 @@
-package deliverable_1;
+package deliverable;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -35,7 +34,10 @@ public class CreatePropertiesFile {
 	 */
 	public static Repository repository() throws IOException {
 		Properties properties = new Properties();
-		properties.load(new FileInputStream(PATHREPOSITORY));
+		try (FileInputStream fileInput = new FileInputStream(PATHREPOSITORY)){
+		properties.load(fileInput);
+		} catch (Exception e) {System.out.println("Errore nel path");}
+		
 		String repoPath = properties.getProperty(PATH);
 		
 		FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
