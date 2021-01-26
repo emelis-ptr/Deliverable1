@@ -1,6 +1,6 @@
 language: java
 jdk: 
-- openjdk15
+- openjdk8
 addons:
   sonarcloud:
    organization: emelis-ptr
