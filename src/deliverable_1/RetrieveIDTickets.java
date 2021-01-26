@@ -1,4 +1,4 @@
-package deliverable1;
+package deliverable_1;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import Utils.jsonUtils;
+import utils.jsonUtils;
 
 import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.api.errors.NoHeadException;

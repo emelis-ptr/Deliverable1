@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +14,10 @@ import org.json.JSONObject;
 
 public class jsonUtils {
 
+	 private jsonUtils() {
+		    throw new IllegalStateException("Utility class");
+		  }
+	 
 	/**
 	 * @param rd
 	 * @return

@@ -1,4 +1,4 @@
-package deliverable1;
+package deliverable_1;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +12,10 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 public class CreatePropertiesFile {
 
+	private CreatePropertiesFile() {
+	    throw new IllegalStateException("Utility class");
+	  }
+	
 	private static final String PATHREPOSITORY = "path_repository.properties";
 	private static final String PATH = "PATH";
 	
@@ -21,23 +25,21 @@ public class CreatePropertiesFile {
 	public static void createPropertiesFile() throws IOException {
 	Properties prop = new Properties();
 	prop.setProperty("filePath", "/myPath/");
-	FileOutputStream fos = new FileOutputStream("path_repository.properties");
+	FileOutputStream fos = new FileOutputStream(PATHREPOSITORY);
 	fos.close();
 	}
 	
 	/**
 	 * @return
-	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static Repository repository() throws FileNotFoundException, IOException {
+	public static Repository repository() throws IOException {
 		Properties properties = new Properties();
 		properties.load(new FileInputStream(PATHREPOSITORY));
 		String repoPath = properties.getProperty(PATH);
 		
 		FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
-	    Repository repository = repositoryBuilder.setGitDir(new File(repoPath)).setMustExist(true).build();
+	    return repositoryBuilder.setGitDir(new File(repoPath)).setMustExist(true).build();
 	    
-		return repository;
 	}
 }
