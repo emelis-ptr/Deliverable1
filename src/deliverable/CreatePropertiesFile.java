@@ -9,6 +9,10 @@ import java.util.Properties;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
+import utils.LoggerFile;
+
+
+
 public class CreatePropertiesFile {
 
 	private CreatePropertiesFile() {
@@ -33,10 +37,11 @@ public class CreatePropertiesFile {
 	 * @throws IOException
 	 */
 	public static Repository repository() throws IOException {
+		
 		Properties properties = new Properties();
 		try (FileInputStream fileInput = new FileInputStream(PATHREPOSITORY)){
 		properties.load(fileInput);
-		} catch (Exception e) {System.out.println("Errore nel path");}
+		} catch (Exception e) {LoggerFile.getLogger().warning("Errore nel file repository.");}
 		
 		String repoPath = properties.getProperty(PATH);
 		

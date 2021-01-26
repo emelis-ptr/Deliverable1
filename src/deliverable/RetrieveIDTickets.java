@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import utils.jsonUtils;
+import utils.JsonUtils;
 
 import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.api.errors.NoHeadException;
@@ -24,7 +24,7 @@ public class RetrieveIDTickets {
 	 
 	 
 	     public static void main(String[] args) throws IOException, JSONException, NoHeadException, JGitInternalException {
-			   
+	    	  
         	   String projName ="Parquet";
     		   ArrayList<String> ticketsID= new ArrayList<>();
     		   
@@ -39,7 +39,7 @@ public class RetrieveIDTickets {
     	                + projName + "%22AND%22issueType%22=%22Bug%22AND(%22status%22=%22closed%22OR"
     	                + "%22status%22=%22resolved%22)AND%22resolution%22=%22fixed%22&fields=key,resolutiondate,versions,created&startAt="
     	                + i.toString() + "&maxResults=" + j.toString();
-    	         JSONObject json = jsonUtils.readJsonFromUrl(url);
+    	         JSONObject json = JsonUtils.readJsonFromUrl(url);
     	         JSONArray issues = json.getJSONArray(ISSUE);
     	         total = json.getInt(TOTAL);
     	         for (; i < total && i < j; i++) {

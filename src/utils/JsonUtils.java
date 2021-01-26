@@ -12,9 +12,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class jsonUtils {
+public class JsonUtils {
 
-	 private jsonUtils() {
+	 private JsonUtils() {
 		    throw new IllegalStateException("Utility class");
 		  }
 	 

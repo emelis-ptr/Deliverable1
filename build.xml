@@ -6,10 +6,26 @@
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="Deliverable1">
     <property environment="env"/>
     <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
+    <property name="target" value="11"/>
+    <property name="source" value="11"/>
     <path id="Deliverable1.classpath">
         <pathelement location="bin"/>
+        <pathelement location="jar/json-20190722.jar"/>
+        <pathelement location="jar/log4j-1.2.17.jar"/>
+        <pathelement location="jar/org-eclipse-jgit.jar"/>
+        <pathelement location="jar/slf4j-api-1.7.21.jar"/>
+        <pathelement location="jar/slf4j-log4j12-1.7.21.jar"/>
+    </path>
+    <path id="run.MainDeliverable1.classpath">
+        <path refid="Deliverable1.classpath"/>
+        <pathelement location="jar/json-20190722.jar"/>
+        <pathelement location="jar/log4j-1.2.17.jar"/>
+        <pathelement location="jar/org-eclipse-jgit.jar"/>
+        <pathelement location="jar/slf4j-api-1.7.21.jar"/>
+        <pathelement location="jar/slf4j-log4j12-1.7.21.jar"/>
+    </path>
+    <path id="run.RetrieveIDTickets.classpath">
+        <path refid="Deliverable1.classpath"/>
         <pathelement location="jar/json-20190722.jar"/>
         <pathelement location="jar/log4j-1.2.17.jar"/>
         <pathelement location="jar/org-eclipse-jgit.jar"/>
@@ -52,13 +68,13 @@
         <antcall target="build"/>
     </target>
     <target name="MainDeliverable1">
-        <java classname="deliverable1.MainDeliverable1" failonerror="true" fork="yes">
-            <classpath refid="Deliverable1.classpath"/>
+        <java classname="deliverable.MainDeliverable1" failonerror="true" fork="yes">
+            <classpath refid="run.MainDeliverable1.classpath"/>
         </java>
     </target>
     <target name="RetrieveIDTickets">
-        <java classname="deliverable1.RetrieveIDTickets" failonerror="true" fork="yes">
-            <classpath refid="Deliverable1.classpath"/>
+        <java classname="deliverable.RetrieveIDTickets" failonerror="true" fork="yes">
+            <classpath refid="run.RetrieveIDTickets.classpath"/>
         </java>
     </target>
 </project>
