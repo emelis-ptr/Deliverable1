@@ -18,15 +18,16 @@ public class LoggerFile {
 	//Costruttore per inizializzare gli attribuiti
 	private LoggerFile() {
 		Properties propertiesLog = new Properties();
-		try {
-			propertiesLog.load(new FileInputStream(PATHLOG));
+		try (FileInputStream fileInput = new FileInputStream(PATHLOG)){
+			propertiesLog.load(fileInput);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			LoggerFile.getLogger().error("Error FileNotFounfException");
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			LoggerFile.getLogger().error("IOException");
 			e.printStackTrace();
 		}
+		
 		String logFilePath = propertiesLog.getProperty(PATH);
 		System.setProperty("java.util.logging.config.file", logFilePath);
 		
@@ -39,6 +40,10 @@ public class LoggerFile {
 	
 	public void warning (String message) {
 		logger.warn(message);
+	}
+	
+	public void error (String message) {
+		logger.error(message);
 	}
 	
 	//Metodo "getIstance()"
