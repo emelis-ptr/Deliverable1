@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import utils.JsonUtils;
+import utils.LoggerFile;
 
 import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.api.errors.NoHeadException;
@@ -50,8 +51,9 @@ public class RetrieveIDTickets {
     	         }  
     	      } while (i < total);
     	      if(!ticketsID.isEmpty()) {
-    	    	 
-    	    	  RetrieveCommitTicketsID.retrieveCommitTicketsID(ticketsID);
-    		  }    
+    	    	 RetrieveCommitTicketsID.retrieveCommitTicketsID(ticketsID);
+    		  }  
+    	      
+    	      LoggerFile.infoLog(ticketsID.toString());
     	   }
 }

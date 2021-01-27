@@ -1,54 +1,54 @@
 package utils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 
 public class LoggerFile {
 	
-	private static final String PATHLOG = "logFilePath.properties";
-	private static final String PATH = "PATH";
-	
-	private static LoggerFile fileLogger = null;	//Istanza del singleton
-	private Logger logger;								
-	
-	//Costruttore per inizializzare gli attribuiti
 	private LoggerFile() {
-		Properties propertiesLog = new Properties();
-		try (FileInputStream fileInput = new FileInputStream(PATHLOG)){
-			propertiesLog.load(fileInput);
-		} catch (FileNotFoundException e) {
-			LoggerFile.getLogger().error("Error FileNotFounfException");
-			e.printStackTrace();
-		} catch (IOException e) {
-			LoggerFile.getLogger().error("IOException");
-			e.printStackTrace();
+		throw new IllegalStateException("LoggerFile class");
+	}
+	
+	private static final Logger myLog = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+	public static void setupLogger() {
+
+		LogManager.getLogManager().reset();
+		myLog.setLevel(Level.ALL);
+
+		ConsoleHandler ch = new ConsoleHandler();
+		ch.setLevel(Level.FINE);
+		myLog.addHandler(ch);
+
+		try {
+			FileHandler fh = new FileHandler("logFile.log", true);
+			fh.setLevel(Level.FINE);
+			myLog.addHandler(fh);
+		} catch (java.io.IOException e) {
+			// don't stop my program but log out to console.
+			myLog.log(Level.SEVERE, "File logger not working.", e);
 		}
-		
-		String logFilePath = propertiesLog.getProperty(PATH);
-		System.setProperty("java.util.logging.config.file", logFilePath);
-		
+		/*
+		 * Different Levels in order. OFF SEVERE WARNING INFO CONFIG FINE FINER FINEST
+		 * ALL
+		 */
 	}
-	
-	
-	public void info (String message) {
-		logger.info(message);
+
+	public static void infoLog(String msg) {
+
+		myLog.info(msg);
 	}
-	
-	public void warning (String message) {
-		logger.warn(message);
+
+	public static void errorLog(String msg) {
+
+		myLog.severe(msg);
 	}
+
+
+
 	
-	public void error (String message) {
-		logger.error(message);
-	}
-	
-	//Metodo "getIstance()"
-	public static LoggerFile getLogger() { 
-		if(fileLogger == null) fileLogger = new LoggerFile();
-		return fileLogger;
-	}
 }

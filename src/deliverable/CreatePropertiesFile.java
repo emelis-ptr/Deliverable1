@@ -41,7 +41,7 @@ public class CreatePropertiesFile {
 		Properties properties = new Properties();
 		try (FileInputStream fileInput = new FileInputStream(PATHREPOSITORY)){
 		properties.load(fileInput);
-		} catch (Exception e) {LoggerFile.getLogger().warning("Errore nel file repository.");}
+		} catch (Exception e) {LoggerFile.errorLog("Errore nel file repository.");}
 		
 		String repoPath = properties.getProperty(PATH);
 		
