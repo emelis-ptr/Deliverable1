@@ -1,8 +1,8 @@
 package deliverable_one;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import utils.InitRepo;
@@ -26,10 +26,10 @@ public class CountFixedTickets {
      * @param ticketsID:     nome di ogni ticket
      * @param commitsTicket: key = nome del ticket; value = commits associato al ticket
      * @throws JGitInternalException:
-     * @throws NoHeadException:
+     * @throws GitAPIException:
      * @throws IOException:
      */
-    public static void retrieveCommitTicketsID(List<String> ticketsID, Map<String, ArrayList<RevCommit>> commitsTicket) throws JGitInternalException, NoHeadException, IOException {
+    public static void retrieveCommitTicketsID(List<String> ticketsID, Map<String, ArrayList<RevCommit>> commitsTicket) throws JGitInternalException, IOException, GitAPIException {
         List<Calendar> allFirstLastDate = new ArrayList<>();
         Map<String, Integer> commitYearMonth = new HashMap<>();
         ArrayList<RevCommit> allCommit = new ArrayList<>();
@@ -81,10 +81,10 @@ public class CountFixedTickets {
      * @param git:         git
      * @param firstCommit: primo commit dell'intero progetto
      * @param lastCommit:  ultimo commit dell'intero progetto
-     * @throws NoHeadException:
+     * @throws GitAPIException:
      * @throws JGitInternalException:
      */
-    public static void firstLastCommit(Git git, Calendar firstCommit, Calendar lastCommit) throws NoHeadException, JGitInternalException {
+    public static void firstLastCommit(Git git, Calendar firstCommit, Calendar lastCommit) throws GitAPIException, JGitInternalException {
         Iterable<RevCommit> logs = git.log().call();
         ArrayList<Date> allCommitDate = new ArrayList<>();
 

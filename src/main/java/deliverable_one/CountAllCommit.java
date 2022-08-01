@@ -1,6 +1,7 @@
 package deliverable_one;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -24,7 +25,7 @@ public class CountAllCommit {
      * @throws NoHeadException:
      * @return : map<String, Integer>. key: anno-mese; value: conteggio dei commit totali per anno-mese
      */
-    public static Map<String, Integer> retrieveCommits() throws IOException, NoHeadException {
+    public static Map<String, Integer> retrieveCommits() throws IOException, GitAPIException {
         ArrayList<RevCommit> allCommit = new ArrayList<>();
         List<Calendar> allFirstLastDate = new ArrayList<>();
         Map<String, Integer> commitYearMonth = new HashMap<>();

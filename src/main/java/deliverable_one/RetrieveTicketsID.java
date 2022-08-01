@@ -4,10 +4,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import utils.JsonUtils;
 import utils.LogFile;
 
@@ -15,7 +16,7 @@ import static utils.Costants.*;
 
 public class RetrieveTicketsID {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws GitAPIException {
         LogFile.setupLogger("Deliverable1");
 
         int j;
