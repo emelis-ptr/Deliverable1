@@ -14,26 +14,31 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+            <version>5.4.2.201908231537-r</version>
+        </dependency>
 
-        <!-- Dependency useful to parse / manage the URL strings (see Jira code) -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>LATEST</version>
+            <version>20220320</version>
         </dependency>
 
-        <!-- This contains StaticLoggerBinder class -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-nop</artifactId>
             <version>1.7.25</version>
         </dependency>
 
-        <!-- Dependency useful to call Git APIs (in local) -->
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
         <dependency>
-            <groupId>org.eclipse.jgit</groupId>
-            <artifactId>org.eclipse.jgit</artifactId>
-            <version>5.4.2.201908231537-r</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+            <type>pom</type>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
